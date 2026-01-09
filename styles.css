@@ -324,17 +324,60 @@ h4 {
     margin: 10mm;
   }
 
+  /* Watermark for Print - Background Mode */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    /* Behind content */
+    background-image: url('IMG5887.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100% !important;
+    opacity: 0.3 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   body {
     margin: 0;
     padding: 0;
     font-size: 8pt;
-    background-color: #fff !important;
+    background-color: transparent !important;
+    /* Allow watermark to show */
+    font-weight: bold !important;
+    /* Make ALL text clearer/bolder */
   }
 
   .container {
     padding: 5mm;
     margin: 0;
     max-width: 100%;
+  }
+
+  .table,
+  .table td,
+  .table th,
+  .table tr {
+    /* removed !important so colored rows work */
+    background-color: transparent;
+    color: #000 !important;
+    /* Ensure text is highest contrast black */
+    font-weight: bold !important;
+  }
+
+  /* Restore Table Header Styling */
+  .table thead th {
+    background-color: #212529 !important;
+    /* Restore dark background */
+    color: #fff !important;
+    /* Restore white text */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .date-controls,
@@ -670,14 +713,11 @@ h4 {
   background-color: #ffffff !important;
 }
 
-/* جعل جميع صفوف الجدول الثالث بيضاء عند الطباعة */
-@media print {
-
-  #completedTable.table-striped tbody tr,
-  #completedTable.table-striped tbody tr:nth-child(odd),
-  #completedTable.table-striped tbody tr:nth-child(even) {
-    background-color: #ffffff !important;
-  }
+/* Removed conflicting white background rule for print to allow watermark transparency */
+#completedTable.table-striped tbody tr,
+#completedTable.table-striped tbody tr:nth-child(odd),
+#completedTable.table-striped tbody tr:nth-child(even) {
+  background-color: transparent !important;
 }
 
 /* ===== Toast Notification System ===== */
