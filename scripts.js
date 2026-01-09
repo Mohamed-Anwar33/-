@@ -1,3 +1,83 @@
+// ===== Toast Notification System =====
+function createToastContainer() {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    // Inline styles as fallback
+    container.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    `;
+    document.body.appendChild(container);
+  }
+  return container;
+}
+
+function showToast(message, type = 'success', duration = 3000) {
+  const container = createToastContainer();
+
+  const icons = {
+    success: '✓',
+    info: 'ℹ',
+    warning: '⚠',
+    error: '✕'
+  };
+
+  const colors = {
+    success: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+    info: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+    warning: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    error: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
+  };
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+
+  // Inline styles as fallback
+  toast.style.cssText = `
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 400px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    direction: rtl;
+    background: ${colors[type]};
+    color: white;
+    animation: toastSlideIn 0.4s ease-out;
+  `;
+
+  toast.innerHTML = `
+    <span style="font-size: 22px;">${icons[type]}</span>
+    <span style="flex: 1; text-align: right;">${message}</span>
+    <button style="background: none; border: none; font-size: 18px; cursor: pointer; color: white; opacity: 0.7;" onclick="this.parentElement.remove()">×</button>
+  `;
+
+  container.appendChild(toast);
+
+  // Auto remove after duration
+  setTimeout(() => {
+    toast.style.animation = 'toastSlideOut 0.3s ease-in forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+
+  return toast;
+}
+
+// ===== Original Code =====
 let hijriYear = 1444;
 let hijriMonth = 8;
 let hijriDay = 5;
@@ -48,8 +128,7 @@ function populateDateSelects() {
     select.innerHTML = Array.from({ length: 30 }, (_, i) => i + 1)
       .map(
         (day) =>
-          `<option value="${day}" ${
-            day === hijriDay ? "selected" : ""
+          `<option value="${day}" ${day === hijriDay ? "selected" : ""
           }>${day}</option>`
       )
       .join("");
@@ -59,8 +138,7 @@ function populateDateSelects() {
     select.innerHTML = hijriMonths
       .map(
         (m, i) =>
-          `<option value="${i + 1}" ${
-            i + 1 === hijriMonth ? "selected" : ""
+          `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
           }>${m}</option>`
       )
       .join("");
@@ -70,8 +148,7 @@ function populateDateSelects() {
     select.innerHTML = Array.from({ length: 41 }, (_, i) => 1430 + i)
       .map(
         (year) =>
-          `<option value="${year}" ${
-            year === hijriYear ? "selected" : ""
+          `<option value="${year}" ${year === hijriYear ? "selected" : ""
           }>${year}</option>`
       )
       .join("");
@@ -81,8 +158,7 @@ function populateDateSelects() {
     select.innerHTML = weekDays
       .map(
         (day) =>
-          `<option value="${day}" ${
-            day === weekDay ? "selected" : ""
+          `<option value="${day}" ${day === weekDay ? "selected" : ""
           }>${day}</option>`
       )
       .join("");
@@ -92,8 +168,7 @@ function populateDateSelects() {
     headerDaySelect.innerHTML = Array.from({ length: 30 }, (_, i) => i + 1)
       .map(
         (day) =>
-          `<option value="${day}" ${
-            day === hijriDay ? "selected" : ""
+          `<option value="${day}" ${day === hijriDay ? "selected" : ""
           }>${day}</option>`
       )
       .join("");
@@ -102,8 +177,7 @@ function populateDateSelects() {
     headerMonthSelect.innerHTML = hijriMonths
       .map(
         (m, i) =>
-          `<option value="${i + 1}" ${
-            i + 1 === hijriMonth ? "selected" : ""
+          `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
           }>${m}</option>`
       )
       .join("");
@@ -112,8 +186,7 @@ function populateDateSelects() {
     headerYearSelect.innerHTML = Array.from({ length: 41 }, (_, i) => 1430 + i)
       .map(
         (year) =>
-          `<option value="${year}" ${
-            year === hijriYear ? "selected" : ""
+          `<option value="${year}" ${year === hijriYear ? "selected" : ""
           }>${year}</option>`
       )
       .join("");
@@ -122,8 +195,7 @@ function populateDateSelects() {
     headerWeekDaySelect.innerHTML = weekDays
       .map(
         (day) =>
-          `<option value="${day}" ${
-            day === weekDay ? "selected" : ""
+          `<option value="${day}" ${day === weekDay ? "selected" : ""
           }>${day}</option>`
       )
       .join("");
@@ -152,12 +224,10 @@ function updateHeaderDate() {
       localStorage.setItem("futureHijriMonth", futureHijriMonth);
       localStorage.setItem("futureHijriYear", futureHijriYear);
 
-      const selectedDate = `${futureWeekDay} ${futureHijriDay} ${
-        hijriMonths[futureHijriMonth - 1]
-      } ${futureHijriYear}`;
-      const printDate = `اليوم: ${futureWeekDay} ${futureHijriDay} ${
-        hijriMonths[futureHijriMonth - 1]
-      }، ${futureHijriYear} هـ`;
+      const selectedDate = `${futureWeekDay} ${futureHijriDay} ${hijriMonths[futureHijriMonth - 1]
+        } ${futureHijriYear}`;
+      const printDate = `اليوم: ${futureWeekDay} ${futureHijriDay} ${hijriMonths[futureHijriMonth - 1]
+        }، ${futureHijriYear} هـ`;
 
       if (document.getElementById("selected-date"))
         document.getElementById("selected-date").innerText = selectedDate;
@@ -184,12 +254,10 @@ function updateHeaderDate() {
       localStorage.setItem("hijriMonth", hijriMonth);
       localStorage.setItem("hijriYear", hijriYear);
 
-      const selectedDate = `${weekDay} ${hijriDay} ${
-        hijriMonths[hijriMonth - 1]
-      } ${hijriYear}`;
-      const printDate = `اليوم: ${weekDay} ${hijriDay} ${
-        hijriMonths[hijriMonth - 1]
-      }، ${hijriYear} هـ`;
+      const selectedDate = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+        } ${hijriYear}`;
+      const printDate = `اليوم: ${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+        }، ${hijriYear} هـ`;
 
       if (document.getElementById("selected-date"))
         document.getElementById("selected-date").innerText = selectedDate;
@@ -221,12 +289,10 @@ function updateHeaderDate() {
       const futureHijriYear =
         parseInt(localStorage.getItem("futureHijriYear")) || 1444;
 
-      const selectedDate = `${futureWeekDay} ${futureHijriDay} ${
-        hijriMonths[futureHijriMonth - 1]
-      } ${futureHijriYear}`;
-      const printDate = `اليوم: ${futureWeekDay} ${futureHijriDay} ${
-        hijriMonths[futureHijriMonth - 1]
-      }، ${futureHijriYear} هـ`;
+      const selectedDate = `${futureWeekDay} ${futureHijriDay} ${hijriMonths[futureHijriMonth - 1]
+        } ${futureHijriYear}`;
+      const printDate = `اليوم: ${futureWeekDay} ${futureHijriDay} ${hijriMonths[futureHijriMonth - 1]
+        }، ${futureHijriYear} هـ`;
 
       if (document.getElementById("selected-date"))
         document.getElementById("selected-date").innerText = selectedDate;
@@ -247,12 +313,10 @@ function updateHeaderDate() {
       hijriMonth = parseInt(localStorage.getItem("hijriMonth")) || 8;
       hijriYear = parseInt(localStorage.getItem("hijriYear")) || 1444;
 
-      const selectedDate = `${weekDay} ${hijriDay} ${
-        hijriMonths[hijriMonth - 1]
-      } ${hijriYear}`;
-      const printDate = `اليوم: ${weekDay} ${hijriDay} ${
-        hijriMonths[hijriMonth - 1]
-      }، ${hijriYear} هـ`;
+      const selectedDate = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+        } ${hijriYear}`;
+      const printDate = `اليوم: ${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+        }، ${hijriYear} هـ`;
 
       if (document.getElementById("selected-date"))
         document.getElementById("selected-date").innerText = selectedDate;
@@ -343,9 +407,8 @@ function addNewRow(tableId) {
   const table = tableElement.getElementsByTagName("tbody")[0];
   const newRow = table.insertRow();
   const rowIndex = table.rows.length;
-  const dateText = `${weekDay} ${hijriDay} ${
-    hijriMonths[hijriMonth - 1]
-  }، ${hijriYear} هـ`;
+  const dateText = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+    }، ${hijriYear} هـ`;
   if (tableId === "mainTable1") {
     newRow.setAttribute("draggable", "true");
     newRow.classList.add("draggable");
@@ -353,43 +416,39 @@ function addNewRow(tableId) {
       <td>${rowIndex}</td>
       <td class="date-cell">
         <select class="hijri-select" name="week-day">${weekDays
-          .map(
-            (day) =>
-              `<option value="${day}" ${
-                day === weekDay ? "selected" : ""
-              }>${day}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (day) =>
+            `<option value="${day}" ${day === weekDay ? "selected" : ""
+            }>${day}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-day">${Array.from(
           { length: 30 },
           (_, i) => i + 1
         )
-          .map(
-            (day) =>
-              `<option value="${day}" ${
-                day === hijriDay ? "selected" : ""
-              }>${day}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (day) =>
+            `<option value="${day}" ${day === hijriDay ? "selected" : ""
+            }>${day}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-month">${hijriMonths
-          .map(
-            (m, i) =>
-              `<option value="${i + 1}" ${
-                i + 1 === hijriMonth ? "selected" : ""
-              }>${m}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (m, i) =>
+            `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
+            }>${m}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-year">${Array.from(
           { length: 41 },
           (_, i) => 1430 + i
         )
-          .map(
-            (year) =>
-              `<option value="${year}" ${
-                year === hijriYear ? "selected" : ""
-              }>${year}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (year) =>
+            `<option value="${year}" ${year === hijriYear ? "selected" : ""
+            }>${year}</option>`
+        )
+        .join("")}</select>
         <span class="print-date">${dateText}</span>
       </td>
       <td contenteditable="true">06:00</td>
@@ -412,43 +471,39 @@ function addNewRow(tableId) {
     newRow.innerHTML = `
       <td class="date-cell">
         <select class="hijri-select" name="week-day">${weekDays
-          .map(
-            (day) =>
-              `<option value="${day}" ${
-                day === weekDay ? "selected" : ""
-              }>${day}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (day) =>
+            `<option value="${day}" ${day === weekDay ? "selected" : ""
+            }>${day}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-day">${Array.from(
           { length: 30 },
           (_, i) => i + 1
         )
-          .map(
-            (day) =>
-              `<option value="${day}" ${
-                day === hijriDay ? "selected" : ""
-              }>${day}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (day) =>
+            `<option value="${day}" ${day === hijriDay ? "selected" : ""
+            }>${day}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-month">${hijriMonths
-          .map(
-            (m, i) =>
-              `<option value="${i + 1}" ${
-                i + 1 === hijriMonth ? "selected" : ""
-              }>${m}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (m, i) =>
+            `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
+            }>${m}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-year">${Array.from(
           { length: 41 },
           (_, i) => 1430 + i
         )
-          .map(
-            (year) =>
-              `<option value="${year}" ${
-                year === hijriYear ? "selected" : ""
-              }>${year}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (year) =>
+            `<option value="${year}" ${year === hijriYear ? "selected" : ""
+            }>${year}</option>`
+        )
+        .join("")}</select>
         <span class="print-date">${dateText}</span>
       </td>
       <td contenteditable="true">06:00</td>
@@ -469,6 +524,7 @@ function addNewRow(tableId) {
   saveTableData(tableId);
   sortTableByStartTime(tableId);
   updatePendingTasks();
+  showToast('تمت إضافة صف جديد بنجاح', 'success');
   if (tableId === "mainTable1") {
     localStorage.setItem(
       "completedTable_tasks",
@@ -495,6 +551,7 @@ function toggleComplete(button, tableId) {
     );
     updateCompletedTable();
   }
+  showToast(isCompleted ? 'تم إلغاء اكتمال المهمة' : 'تم إكمال المهمة بنجاح ✓', isCompleted ? 'warning' : 'success');
 }
 
 function showColorPicker(button, tableId) {
@@ -603,6 +660,7 @@ function editTable(tableId, button) {
       );
       updateCompletedTable();
     }
+    showToast('تم حفظ التعديلات بنجاح', 'success');
   } else {
     cells[1 + offset].contentEditable = "true";
     cells[2 + offset].contentEditable = "true";
@@ -627,6 +685,7 @@ function deleteTask(button, tableId) {
     updateRowNumbers(tableId);
     updateCompletedTable();
   }
+  showToast('تم حذف المهمة', 'warning');
 }
 
 function saveTableData(tableId) {
@@ -702,43 +761,39 @@ function loadTableData(tableId) {
         <td>${index + 1}</td>
         <td class="date-cell">
           <select class="hijri-select" name="week-day">${weekDays
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === weekDay ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === weekDay ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-day">${Array.from(
             { length: 30 },
             (_, i) => i + 1
           )
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === parseInt(day) ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === parseInt(day) ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-month">${hijriMonths
-            .map(
-              (m, i) =>
-                `<option value="${i + 1}" ${
-                  i + 1 === parseInt(month) ? "selected" : ""
-                }>${m}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (m, i) =>
+              `<option value="${i + 1}" ${i + 1 === parseInt(month) ? "selected" : ""
+              }>${m}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-year">${Array.from(
             { length: 41 },
             (_, i) => 1430 + i
           )
-            .map(
-              (y) =>
-                `<option value="${y}" ${
-                  y === parseInt(year) ? "selected" : ""
-                }>${y}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (y) =>
+              `<option value="${y}" ${y === parseInt(year) ? "selected" : ""
+              }>${y}</option>`
+          )
+          .join("")}</select>
           <span class="print-date">${dateText}</span>
         </td>
         <td contenteditable="false">${rowData[1]}</td>
@@ -748,15 +803,12 @@ function loadTableData(tableId) {
         <td class="edit-column">
           <div class="action-buttons">
             <button class="btn btn-warning btn-sm edit-btn" onclick="editTable('${tableId}', this)">تعديل</button>
-            <button class="btn ${
-              isCompleted ? "btn-warning" : "btn-success"
-            } btn-sm complete-btn" onclick="toggleComplete(this, '${tableId}')">${
-        isCompleted ? "إلغاء الاكتمال" : "اكتمال"
-      }</button>
+            <button class="btn ${isCompleted ? "btn-warning" : "btn-success"
+        } btn-sm complete-btn" onclick="toggleComplete(this, '${tableId}')">${isCompleted ? "إلغاء الاكتمال" : "اكتمال"
+        }</button>
             <button class="btn btn-danger btn-sm delete-btn" onclick="deleteTask(this, '${tableId}')">حذف</button>
-            <button class="btn btn-danger btn-sm important-btn" onclick="showColorPicker(this, '${tableId}')">${
-        isImportant ? "إلغاء الأهمية" : "تحديد اللون"
-      }</button>
+            <button class="btn btn-danger btn-sm important-btn" onclick="showColorPicker(this, '${tableId}')">${isImportant ? "إلغاء الأهمية" : "تحديد اللون"
+        }</button>
             <button class="btn btn-secondary btn-sm remove-color-btn" onclick="removeColor(this, '${tableId}')">إزالة اللون</button>
             <button class="btn btn-primary btn-sm move-btn" onclick="moveRowUp(this, '${tableId}')">↑</button>
             <button class="btn btn-primary btn-sm move-btn" onclick="moveRowDown(this, '${tableId}')">↓</button>
@@ -767,43 +819,39 @@ function loadTableData(tableId) {
       row.innerHTML = `
         <td class="date-cell">
           <select class="hijri-select" name="week-day">${weekDays
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === weekDay ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === weekDay ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-day">${Array.from(
             { length: 30 },
             (_, i) => i + 1
           )
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === parseInt(day) ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === parseInt(day) ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-month">${hijriMonths
-            .map(
-              (m, i) =>
-                `<option value="${i + 1}" ${
-                  i + 1 === parseInt(month) ? "selected" : ""
-                }>${m}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (m, i) =>
+              `<option value="${i + 1}" ${i + 1 === parseInt(month) ? "selected" : ""
+              }>${m}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-year">${Array.from(
             { length: 41 },
             (_, i) => 1430 + i
           )
-            .map(
-              (y) =>
-                `<option value="${y}" ${
-                  y === parseInt(year) ? "selected" : ""
-                }>${y}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (y) =>
+              `<option value="${y}" ${y === parseInt(year) ? "selected" : ""
+              }>${y}</option>`
+          )
+          .join("")}</select>
           <span class="print-date">${dateText}</span>
         </td>
         <td contenteditable="false">${rowData[1]}</td>
@@ -813,15 +861,12 @@ function loadTableData(tableId) {
         <td class="edit-column">
           <div class="action-buttons">
             <button class="btn btn-warning btn-sm edit-btn" onclick="editTable('${tableId}', this)">تعديل</button>
-            <button class="btn ${
-              isCompleted ? "btn-warning" : "btn-success"
-            } btn-sm complete-btn" onclick="toggleComplete(this, '${tableId}')">${
-        isCompleted ? "إلغاء الاكتمال" : "اكتمال"
-      }</button>
+            <button class="btn ${isCompleted ? "btn-warning" : "btn-success"
+        } btn-sm complete-btn" onclick="toggleComplete(this, '${tableId}')">${isCompleted ? "إلغاء الاكتمال" : "اكتمال"
+        }</button>
             <button class="btn btn-danger btn-sm delete-btn" onclick="deleteTask(this, '${tableId}')">حذف</button>
-            <button class="btn btn-danger btn-sm important-btn" onclick="showColorPicker(this, '${tableId}')">${
-        isImportant ? "إلغاء الأهمية" : "تحديد اللون"
-      }</button>
+            <button class="btn btn-danger btn-sm important-btn" onclick="showColorPicker(this, '${tableId}')">${isImportant ? "إلغاء الأهمية" : "تحديد اللون"
+        }</button>
             <button class="btn btn-secondary btn-sm remove-color-btn" onclick="removeColor(this, '${tableId}')">إزالة اللون</button>
           </div>
         </td>
@@ -831,43 +876,39 @@ function loadTableData(tableId) {
         <td>${index + 1}</td>
         <td class="date-cell">
           <select class="hijri-select" name="week-day">${weekDays
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === weekDay ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === weekDay ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-day">${Array.from(
             { length: 30 },
             (_, i) => i + 1
           )
-            .map(
-              (d) =>
-                `<option value="${d}" ${
-                  d === parseInt(day) ? "selected" : ""
-                }>${d}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (d) =>
+              `<option value="${d}" ${d === parseInt(day) ? "selected" : ""
+              }>${d}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-month">${hijriMonths
-            .map(
-              (m, i) =>
-                `<option value="${i + 1}" ${
-                  i + 1 === parseInt(month) ? "selected" : ""
-                }>${m}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (m, i) =>
+              `<option value="${i + 1}" ${i + 1 === parseInt(month) ? "selected" : ""
+              }>${m}</option>`
+          )
+          .join("")}</select>
           <select class="hijri-select" name="hijri-year">${Array.from(
             { length: 41 },
             (_, i) => 1430 + i
           )
-            .map(
-              (y) =>
-                `<option value="${y}" ${
-                  y === parseInt(year) ? "selected" : ""
-                }>${y}</option>`
-            )
-            .join("")}</select>
+          .map(
+            (y) =>
+              `<option value="${y}" ${y === parseInt(year) ? "selected" : ""
+              }>${y}</option>`
+          )
+          .join("")}</select>
           <span class="print-date">${dateText}</span>
         </td>
         <td contenteditable="false">${rowData[1]}</td>
@@ -990,45 +1031,40 @@ function updateAllTables() {
       for (let row of rows) {
         const offset = tableId === "mainTable1" ? 1 : 0;
         const dateCell = row.cells[0 + offset];
-        const dateText = `${weekDay} ${hijriDay} ${
-          hijriMonths[hijriMonth - 1]
-        }، ${hijriYear} هـ`;
+        const dateText = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+          }، ${hijriYear} هـ`;
         dateCell.innerHTML = `
           <select class="hijri-select" name="week-day">${weekDays
             .map(
               (day) =>
-                `<option value="${day}" ${
-                  day === weekDay ? "selected" : ""
+                `<option value="${day}" ${day === weekDay ? "selected" : ""
                 }>${day}</option>`
             )
             .join("")}</select>
           <select class="hijri-select" name="hijri-day">${Array.from(
-            { length: 30 },
-            (_, i) => i + 1
-          )
+              { length: 30 },
+              (_, i) => i + 1
+            )
             .map(
               (day) =>
-                `<option value="${day}" ${
-                  day === hijriDay ? "selected" : ""
+                `<option value="${day}" ${day === hijriDay ? "selected" : ""
                 }>${day}</option>`
             )
             .join("")}</select>
           <select class="hijri-select" name="hijri-month">${hijriMonths
             .map(
               (m, i) =>
-                `<option value="${i + 1}" ${
-                  i + 1 === hijriMonth ? "selected" : ""
+                `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
                 }>${m}</option>`
             )
             .join("")}</select>
           <select class="hijri-select" name="hijri-year">${Array.from(
-            { length: 41 },
-            (_, i) => 1430 + i
-          )
+              { length: 41 },
+              (_, i) => 1430 + i
+            )
             .map(
               (year) =>
-                `<option value="${year}" ${
-                  year === hijriYear ? "selected" : ""
+                `<option value="${year}" ${year === hijriYear ? "selected" : ""
                 }>${year}</option>`
             )
             .join("")}</select>
@@ -1098,7 +1134,9 @@ function loadEditableText() {
     "title3",
     "title4",
     "notesTitle",
-    "signatureName",
+    "leaderTitle",
+    "leaderRank",
+    "leaderName",
   ].forEach((id) => {
     const savedText = localStorage.getItem(id);
     const element = document.getElementById(id);
@@ -1107,6 +1145,21 @@ function loadEditableText() {
       element.innerHTML = savedText;
     }
   });
+
+  // Sync leader info to secondary display elements (non-editable copies)
+  const leaderTitle2 = document.getElementById("leaderTitle2");
+  const leaderRank2 = document.getElementById("leaderRank2");
+  const leaderName2 = document.getElementById("leaderName2");
+
+  if (leaderTitle2) {
+    leaderTitle2.innerHTML = localStorage.getItem("leaderTitle") || "قائد قوة المهام والواجبات الخاصة";
+  }
+  if (leaderRank2) {
+    leaderRank2.innerHTML = localStorage.getItem("leaderRank") || "عقيد /";
+  }
+  if (leaderName2) {
+    leaderName2.innerHTML = localStorage.getItem("leaderName") || "فيصل بن خالد النفيسة";
+  }
 }
 
 function addNewFutureRow() {
@@ -1114,51 +1167,46 @@ function addNewFutureRow() {
   if (!tableElement) return;
   const table = tableElement.getElementsByTagName("tbody")[0];
   const rowIndex = table.rows.length + 1;
-  const dateText = `${weekDay} ${hijriDay} ${
-    hijriMonths[hijriMonth - 1]
-  }، ${hijriYear} هـ`;
+  const dateText = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+    }، ${hijriYear} هـ`;
   const newRow = table.insertRow();
   newRow.innerHTML = `
     <td>${rowIndex}</td>
     <td class="date-cell">
       <select class="hijri-select" name="week-day">${weekDays
-        .map(
-          (day) =>
-            `<option value="${day}" ${
-              day === weekDay ? "selected" : ""
-            }>${day}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (day) =>
+          `<option value="${day}" ${day === weekDay ? "selected" : ""
+          }>${day}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-day">${Array.from(
         { length: 30 },
         (_, i) => i + 1
       )
-        .map(
-          (day) =>
-            `<option value="${day}" ${
-              day === hijriDay ? "selected" : ""
-            }>${day}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (day) =>
+          `<option value="${day}" ${day === hijriDay ? "selected" : ""
+          }>${day}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-month">${hijriMonths
-        .map(
-          (m, i) =>
-            `<option value="${i + 1}" ${
-              i + 1 === hijriMonth ? "selected" : ""
-            }>${m}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (m, i) =>
+          `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
+          }>${m}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-year">${Array.from(
         { length: 41 },
         (_, i) => 1430 + i
       )
-        .map(
-          (year) =>
-            `<option value="${year}" ${
-              year === hijriYear ? "selected" : ""
-            }>${year}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (year) =>
+          `<option value="${year}" ${year === hijriYear ? "selected" : ""
+          }>${year}</option>`
+      )
+      .join("")}</select>
       <span class="print-date">${dateText}</span>
     </td>
     <td contenteditable="true">06:00</td>
@@ -1217,43 +1265,39 @@ function loadFutureTasks() {
       <td>${index + 1}</td>
       <td class="date-cell">
         <select class="hijri-select" name="week-day">${weekDays
-          .map(
-            (d) =>
-              `<option value="${d}" ${
-                d === weekDay ? "selected" : ""
-              }>${d}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (d) =>
+            `<option value="${d}" ${d === weekDay ? "selected" : ""
+            }>${d}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-day">${Array.from(
           { length: 30 },
           (_, i) => i + 1
         )
-          .map(
-            (d) =>
-              `<option value="${d}" ${
-                d === parseInt(day) ? "selected" : ""
-              }>${d}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (d) =>
+            `<option value="${d}" ${d === parseInt(day) ? "selected" : ""
+            }>${d}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-month">${hijriMonths
-          .map(
-            (m, i) =>
-              `<option value="${i + 1}" ${
-                i + 1 === month ? "selected" : ""
-              }>${m}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (m, i) =>
+            `<option value="${i + 1}" ${i + 1 === month ? "selected" : ""
+            }>${m}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-year">${Array.from(
           { length: 41 },
           (_, i) => 1430 + i
         )
-          .map(
-            (y) =>
-              `<option value="${y}" ${
-                y === parseInt(year) ? "selected" : ""
-              }>${y}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (y) =>
+            `<option value="${y}" ${y === parseInt(year) ? "selected" : ""
+            }>${y}</option>`
+        )
+        .join("")}</select>
         <span class="print-date">${dateText}</span>
       </td>
       <td contenteditable="false">${rowData[1]}</td>
@@ -1275,51 +1319,46 @@ function addNewPendingTask() {
   if (!tableElement) return;
   const table = tableElement.getElementsByTagName("tbody")[0];
   const rowIndex = table.rows.length + 1;
-  const dateText = `${weekDay} ${hijriDay} ${
-    hijriMonths[hijriMonth - 1]
-  }، ${hijriYear} هـ`;
+  const dateText = `${weekDay} ${hijriDay} ${hijriMonths[hijriMonth - 1]
+    }، ${hijriYear} هـ`;
   const newRow = table.insertRow();
   newRow.innerHTML = `
     <td>${rowIndex}</td>
     <td class="date-cell">
       <select class="hijri-select" name="week-day">${weekDays
-        .map(
-          (day) =>
-            `<option value="${day}" ${
-              day === weekDay ? "selected" : ""
-            }>${day}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (day) =>
+          `<option value="${day}" ${day === weekDay ? "selected" : ""
+          }>${day}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-day">${Array.from(
         { length: 30 },
         (_, i) => i + 1
       )
-        .map(
-          (day) =>
-            `<option value="${day}" ${
-              day === hijriDay ? "selected" : ""
-            }>${day}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (day) =>
+          `<option value="${day}" ${day === hijriDay ? "selected" : ""
+          }>${day}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-month">${hijriMonths
-        .map(
-          (m, i) =>
-            `<option value="${i + 1}" ${
-              i + 1 === hijriMonth ? "selected" : ""
-            }>${m}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (m, i) =>
+          `<option value="${i + 1}" ${i + 1 === hijriMonth ? "selected" : ""
+          }>${m}</option>`
+      )
+      .join("")}</select>
       <select class="hijri-select" name="hijri-year">${Array.from(
         { length: 41 },
         (_, i) => 1430 + i
       )
-        .map(
-          (year) =>
-            `<option value="${year}" ${
-              year === hijriYear ? "selected" : ""
-            }>${year}</option>`
-        )
-        .join("")}</select>
+      .map(
+        (year) =>
+          `<option value="${year}" ${year === hijriYear ? "selected" : ""
+          }>${year}</option>`
+      )
+      .join("")}</select>
       <span class="print-date">${dateText}</span>
     </td>
     <td contenteditable="true">06:00</td>
@@ -1378,43 +1417,39 @@ function loadPendingTasks() {
       <td>${index + 1}</td>
       <td class="date-cell">
         <select class="hijri-select" name="week-day">${weekDays
-          .map(
-            (d) =>
-              `<option value="${d}" ${
-                d === weekDay ? "selected" : ""
-              }>${d}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (d) =>
+            `<option value="${d}" ${d === weekDay ? "selected" : ""
+            }>${d}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-day">${Array.from(
           { length: 30 },
           (_, i) => i + 1
         )
-          .map(
-            (d) =>
-              `<option value="${d}" ${
-                d === parseInt(day) ? "selected" : ""
-              }>${d}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (d) =>
+            `<option value="${d}" ${d === parseInt(day) ? "selected" : ""
+            }>${d}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-month">${hijriMonths
-          .map(
-            (m, i) =>
-              `<option value="${i + 1}" ${
-                i + 1 === month ? "selected" : ""
-              }>${m}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (m, i) =>
+            `<option value="${i + 1}" ${i + 1 === month ? "selected" : ""
+            }>${m}</option>`
+        )
+        .join("")}</select>
         <select class="hijri-select" name="hijri-year">${Array.from(
           { length: 41 },
           (_, i) => 1430 + i
         )
-          .map(
-            (y) =>
-              `<option value="${y}" ${
-                y === parseInt(year) ? "selected" : ""
-              }>${y}</option>`
-          )
-          .join("")}</select>
+        .map(
+          (y) =>
+            `<option value="${y}" ${y === parseInt(year) ? "selected" : ""
+            }>${y}</option>`
+        )
+        .join("")}</select>
         <span class="print-date">${dateText}</span>
       </td>
       <td contenteditable="false">${rowData[1]}</td>

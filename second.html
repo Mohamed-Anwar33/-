@@ -1,130 +1,98 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>الجدول الثالث</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="section">
-        <p class="title">تبليغ مباشرة مهمة</p>
-        <p>قائد السريا - للمتابعة</p>
-        <p>ضابط الميدان - للمتابعة</p>
-        <p>ضابط خفر - للمتابعة</p>
-        <p>رقيب السرية - فيما يخصكم</p>
-        <p>رقيب فصل (ق) - فيما يخصكم</p>
-        <p>رقيب مجموعة (٧) - فيما يخصكم</p>
-        <p>رئيس العمليات</p>
-        <p>رقيب الحركة والآليات</p>
-      </div>
-      <p class="greeting">السلام عليكم ورحمة الله وبركاته</p>
-      <div class="section"><h2 class="subtitle">عن المهمة التالية</h2></div>
-      <div class="text-center mt-3">
-        <h4 class="header fs-6 editable" id="title9">
-          بيان بالمهام المكلفة بها قوة المهام والواجبات الخاصة ليوم
-          <span id="selected-date"></span
-          ><span id="print-selected-date" class="print-date"></span>
-        </h4>
-        <div class="date-controls mt-2">
-          <select
-            class="hijri-select"
-            id="header-weekday"
-            onchange="updateHeaderDate()"
-          >
-            <option value="السبت" selected>السبت</option>
-            <option value="الأحد">الأحد</option>
-            <option value="الإثنين">الإثنين</option>
-            <option value="الثلاثاء">الثلاثاء</option>
-            <option value="الأربعاء">الأربعاء</option>
-            <option value="الخميس">الخميس</option>
-            <option value="الجمعة">الجمعة</option>
-          </select>
-          <select
-            class="hijri-select"
-            id="header-day"
-            onchange="updateHeaderDate()"
-          ></select>
-          <select
-            class="hijri-select"
-            id="header-month"
-            onchange="updateHeaderDate()"
-          ></select>
-          <select
-            class="hijri-select"
-            id="header-year"
-            onchange="updateHeaderDate()"
-          ></select>
-        </div>
-      </div>
-      <div class="table-responsive table-section">
-        <table
-          class="table table-bordered text-center align-middle"
-          id="completedTable"
-        >
-          <thead class="table-dark">
-            <tr>
-              <th>التسلسل</th>
-              <th>اليوم والتاريخ</th>
-              <th>المباشرة بالموقع</th>
-              <th>نوع المهمة</th>
-              <th>الموقع</th>
-              <th>المطلوب</th>
-              <th class="edit-column">الحالة</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <div class="table-buttons mt-3">
-          <button
-            class="btn btn-primary btn-sm print-btn"
-            onclick="printTable('completedTable')"
-          >
-            طباعة
-          </button>
-        </div>
-      </div>
-      <div class="signature-section">
-        <p
-          id="signatureName"
-          class="editable"
-          style="
-            font-size: 16px;
-            font-family: 'Tajawal', sans-serif;
-            line-height: 1.8;
-            text-align: left;
-          "
-        >
-          <span style="display: block">قائد قوة المهام والواجبات الخاصة</span
-          ><span style="display: block; margin-left: 175px">عقيد /</span
-          ><span style="display: block; margin-left: 67px"
-            >فيصل بن خالد النفيسة</span
-          >
-        </p>
-      </div>
-      <div class="text-center mt-4 navigation-buttons">
-        <a href="index.html" class="btn btn-secondary btn-sm"
-          >الجدول الأول والثاني</a
-        >
-        <a href="pending_tasks.html" class="btn btn-warning btn-sm"
-          >المهام المؤجلة</a
-        >
-        <a href="feauturetasks.html" class="btn btn-warning btn-sm"
-          >المهام المستقبلية</a
-        >
-        <a href="statistics.html" class="btn btn-secondary btn-sm">الإحصائية</a>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الجدول الثالث</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="section">
+      <p class="title">تبليغ مباشرة مهمة</p>
+      <p>قائد السريا - للمتابعة</p>
+      <p>ضابط الميدان - للمتابعة</p>
+      <p>ضابط خفر - للمتابعة</p>
+      <p>رقيب السرية - فيما يخصكم</p>
+      <p>رقيب فصل (ق) - فيما يخصكم</p>
+      <p>رقيب مجموعة (٧) - فيما يخصكم</p>
+      <p>رئيس العمليات</p>
+      <p>رقيب الحركة والآليات</p>
+    </div>
+    <p class="greeting">السلام عليكم ورحمة الله وبركاته</p>
+    <div class="section">
+      <h2 class="subtitle">عن المهمة التالية</h2>
+    </div>
+    <div class="text-center mt-3">
+      <h4 class="header fs-6 editable" id="title9">
+        بيان بالمهام المكلفة بها قوة المهام والواجبات الخاصة ليوم
+        <span id="selected-date"></span><span id="print-selected-date" class="print-date"></span>
+      </h4>
+      <div class="date-controls mt-2">
+        <select class="hijri-select" id="header-weekday" onchange="updateHeaderDate()">
+          <option value="السبت" selected>السبت</option>
+          <option value="الأحد">الأحد</option>
+          <option value="الإثنين">الإثنين</option>
+          <option value="الثلاثاء">الثلاثاء</option>
+          <option value="الأربعاء">الأربعاء</option>
+          <option value="الخميس">الخميس</option>
+          <option value="الجمعة">الجمعة</option>
+        </select>
+        <select class="hijri-select" id="header-day" onchange="updateHeaderDate()"></select>
+        <select class="hijri-select" id="header-month" onchange="updateHeaderDate()"></select>
+        <select class="hijri-select" id="header-year" onchange="updateHeaderDate()"></select>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts.js"></script>
-  </body>
+    <div class="table-responsive table-section">
+      <table class="table table-bordered text-center align-middle" id="completedTable">
+        <thead class="table-dark">
+          <tr>
+            <th>التسلسل</th>
+            <th>اليوم والتاريخ</th>
+            <th>المباشرة بالموقع</th>
+            <th>نوع المهمة</th>
+            <th>الموقع</th>
+            <th>المطلوب</th>
+            <th class="edit-column">الحالة</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="table-buttons mt-3">
+        <button class="btn btn-primary btn-sm print-btn" onclick="printTable('completedTable')">
+          طباعة
+        </button>
+      </div>
+    </div>
+    <div class="signature-section">
+      <div class="signature-block">
+        <div class="signature-line">
+          <span class="editable" id="leaderTitle">قائد قوة المهام والواجبات الخاصة</span>
+          <button class="btn btn-warning btn-sm edit-btn" onclick="editText('leaderTitle')">تعديل</button>
+        </div>
+        <div class="signature-line ps-5 ms-5">
+          <span class="editable" id="leaderRank">عقيد /</span>
+          <button class="btn btn-warning btn-sm edit-btn" onclick="editText('leaderRank')">تعديل</button>
+        </div>
+        <div class="signature-line padding-dynamic">
+          <span class="editable" id="leaderName">فيصل بن خالد النفيسة</span>
+          <button class="btn btn-warning btn-sm edit-btn" onclick="editText('leaderName')">تعديل</button>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4 navigation-buttons">
+      <a href="index.html" class="btn btn-secondary btn-sm">الجدول الأول والثاني</a>
+      <a href="pending_tasks.html" class="btn btn-warning btn-sm">المهام المؤجلة</a>
+      <a href="feauturetasks.html" class="btn btn-warning btn-sm">المهام المستقبلية</a>
+      <a href="statistics.html" class="btn btn-secondary btn-sm">الإحصائية</a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
+
 </html>

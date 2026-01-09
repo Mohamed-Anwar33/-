@@ -3,7 +3,8 @@ body {
   height: 100%;
   width: 100%;
   font-family: "Tajawal", sans-serif;
-  background-color: #fff; /* Changed from #f0f4f8 to white */
+  background-color: #fff;
+  /* Changed from #f0f4f8 to white */
   direction: rtl;
   margin: 0;
   padding: 0;
@@ -57,32 +58,42 @@ h4 {
 .table td {
   font-size: 10px;
   font-weight: bold;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 200px;
 }
 
 .table th:nth-child(1),
 .table td:nth-child(1) {
   width: 5%;
 }
+
 .table th:nth-child(2),
 .table td:nth-child(2) {
   width: 15%;
 }
+
 .table th:nth-child(3),
 .table td:nth-child(3) {
   width: 10%;
 }
+
 .table th:nth-child(4),
 .table td:nth-child(4) {
   width: 20%;
 }
+
 .table th:nth-child(5),
 .table td:nth-child(5) {
   width: 20%;
 }
+
 .table th:nth-child(6),
 .table td:nth-child(6) {
   width: 25%;
 }
+
 .table th:nth-child(7),
 .table td:nth-child(7) {
   width: 15%;
@@ -97,8 +108,8 @@ h4 {
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 5px;
-  flex-wrap: nowrap;
+  gap: 2px;
+  flex-wrap: wrap;
 }
 
 .edit-btn,
@@ -107,19 +118,49 @@ h4 {
 .important-btn,
 .remove-color-btn,
 .move-btn {
-  margin: 2px;
-  padding: 4px 8px;
-  font-size: 12px;
+  margin: 1px;
+  padding: 2px 5px;
+  font-size: 9px;
   white-space: nowrap;
-  min-width: 50px;
+}
+
+.edit-column {
+  min-width: 150px;
+  max-width: 180px;
+}
+
+/* Mobile styles for buttons */
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+
+  .edit-btn,
+  .complete-btn,
+  .delete-btn,
+  .important-btn,
+  .remove-color-btn,
+  .move-btn {
+    padding: 2px 4px;
+    font-size: 8px;
+  }
+
+  .edit-column {
+    min-width: auto;
+    max-width: none;
+    overflow-x: auto;
+  }
 }
 
 .draggable {
   cursor: move;
 }
+
 .drag-over {
   border: 2px dashed #2c3e50;
 }
+
 .move-btn {
   padding: 2px 6px;
   font-size: 10px;
@@ -128,39 +169,51 @@ h4 {
 .important-task-dark-red {
   background-color: #ff9999 !important;
 }
+
 .important-task-dark-purple {
   background-color: #e6ccff !important;
 }
+
 .important-task-dark-green {
   background-color: #99cc99 !important;
 }
+
 .important-task-dark-blue {
   background-color: #99ccff !important;
 }
+
 .important-task-dark-brown {
   background-color: #d9b38c !important;
 }
+
 .important-task-deep-red {
   background-color: #e57373 !important;
 }
+
 .important-task-deep-blue {
   background-color: #64b5f6 !important;
 }
+
 .important-task-deep-green {
   background-color: #81c784 !important;
 }
+
 .important-task-deep-orange {
   background-color: #ffb74d !important;
 }
+
 .important-task-deep-purple {
   background-color: #ba68c8 !important;
 }
+
 .important-task-light-orange {
   background-color: #ffd580 !important;
 }
+
 .important-task-light-gray {
   background-color: #f0f0f0 !important;
 }
+
 .important-task-light-green {
   background-color: #00ff00 !important;
 }
@@ -168,6 +221,7 @@ h4 {
 .color-picker {
   margin-top: 5px;
 }
+
 .color-select {
   width: 120px;
   padding: 5px;
@@ -176,11 +230,13 @@ h4 {
   font-size: 12px;
   transition: all 0.3s ease;
 }
+
 .color-select:focus {
   outline: none;
   border-color: #2c3e50;
   box-shadow: 0 0 5px rgba(44, 62, 80, 0.3);
 }
+
 .color-select option {
   padding: 5px;
 }
@@ -188,6 +244,7 @@ h4 {
 .notes {
   text-align: right;
 }
+
 .notes ul,
 .notes p {
   font-size: 11px;
@@ -197,6 +254,7 @@ h4 {
   text-align: left;
   width: 100%;
 }
+
 .signature-section p {
   display: block;
   text-align: left;
@@ -210,14 +268,17 @@ h4 {
   margin: 0 2px;
   display: inline-block;
 }
+
 .date-controls {
   display: flex;
   gap: 5px;
   justify-content: center;
 }
+
 .print-date {
   display: none;
 }
+
 #secondPageContent {
   display: none;
 }
@@ -226,21 +287,25 @@ h4 {
   margin-top: 20px;
   text-align: center;
 }
+
 .section p {
   margin: 5px 0;
   font-size: 12px;
 }
+
 .title {
   font-weight: bold;
   text-decoration: underline;
   font-size: 14px;
   margin-bottom: 10px;
 }
+
 .greeting {
   font-size: 14px;
   margin: 20px 0;
   text-align: right;
 }
+
 .subtitle {
   font-size: 16px;
   text-decoration: underline;
@@ -258,17 +323,20 @@ h4 {
     size: A4;
     margin: 10mm;
   }
+
   body {
     margin: 0;
     padding: 0;
     font-size: 8pt;
     background-color: #fff !important;
   }
+
   .container {
     padding: 5mm;
     margin: 0;
     max-width: 100%;
   }
+
   .date-controls,
   .table-buttons,
   .edit-column,
@@ -278,17 +346,21 @@ h4 {
   a.btn {
     display: none !important;
   }
+
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+
   .hijri-select {
     display: none !important;
   }
+
   .print-date {
     display: inline !important;
     font-size: 8pt;
   }
+
   .table {
     margin-bottom: 5mm;
     font-size: 7pt;
@@ -296,166 +368,301 @@ h4 {
     border-collapse: collapse;
     width: 100%;
   }
+
   .table th,
   .table td {
     padding: 2mm;
-    height: 6mm;
-    line-height: 1;
+    min-height: 6mm;
+    height: auto;
+    line-height: 1.3;
     border: 1px solid #000;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: none;
   }
+
   .table-section {
     margin-bottom: 2mm;
   }
+
   h4.header {
     font-size: 9pt;
     margin-bottom: 2mm;
   }
+
   .small-text {
     font-size: 7pt;
     margin-bottom: 1mm;
   }
+
   .introduction {
     font-size: 7pt;
     margin-top: 2mm;
     margin-bottom: 2mm;
   }
+
   .notes {
     margin-top: 2mm;
   }
+
   .notes h5 {
     font-size: 7pt;
     margin-bottom: 1mm;
   }
+
   .notes ul {
     font-size: 6pt;
     margin: 0;
     padding-right: 5mm;
     line-height: 1.2;
   }
+
   .signature-section p {
     font-size: 8pt;
     margin-top: 2mm;
     line-height: 1.2;
   }
+
   .important-task-dark-red {
     background-color: #ff9999 !important;
   }
+
   .important-task-dark-purple {
     background-color: #e6ccff !important;
   }
+
   .important-task-dark-green {
     background-color: #99cc99 !important;
   }
+
   .important-task-dark-blue {
     background-color: #99ccff !important;
   }
+
   .important-task-dark-brown {
     background-color: #d9b38c !important;
   }
+
   .important-task-deep-red {
     background-color: #e57373 !important;
   }
+
   .important-task-deep-blue {
     background-color: #64b5f6 !important;
   }
+
   .important-task-deep-green {
     background-color: #81c784 !important;
   }
+
   .important-task-deep-orange {
     background-color: #ffb74d !important;
   }
+
   .important-task-deep-purple {
     background-color: #ba68c8 !important;
   }
+
   #secondPageContent {
     display: block !important;
     page-break-before: always;
   }
+
   #secondPageContent .container {
     padding: 5mm;
     margin: 0;
     max-width: 100%;
   }
+
   #secondPageContent .section {
     margin-top: 5mm;
     text-align: center;
   }
+
   #secondPageContent .section p {
     font-size: 8pt;
     margin: 2mm 0;
   }
+
   #secondPageContent .title {
     font-size: 10pt;
     margin-bottom: 3mm;
   }
+
   #secondPageContent .greeting {
     font-size: 10pt;
     margin: 5mm 0;
   }
+
   #secondPageContent .subtitle {
     font-size: 12pt;
     margin: 5mm 0;
   }
+
   .status-column {
     display: none !important;
   }
+
   .table td:nth-child(7),
   .table th:nth-child(7) {
     display: none !important;
   }
+
   #second-selected-date,
   #second-print-selected-date {
     display: none !important;
   }
+
   /* التأكد من أن صفوف الجدول الثالث بيضاء عند الطباعة */
   #completedTable.table-striped tbody tr {
     background-color: #fff !important;
   }
 }
 
-@media (max-width: 430px) {
-  .table {
-    font-size: 7px;
-    min-width: 600px;
-  }
+
+/* ===== New Utility Classes to Replace Inline Styles ===== */
+.introduction {
+  font-size: 12px;
+  margin-top: 2rem;
+}
+
+.introduction p {
+  font-size: 12px;
+}
+
+.notes-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.notes-list {
+  font-size: 12px;
+  padding-right: 20px;
+}
+
+.signature-block {
+  font-size: 14px;
+  font-family: 'Tajawal', sans-serif;
+  line-height: 1.8;
+  text-align: left;
+}
+
+/* ===== Responsive Improvements ===== */
+@media (max-width: 768px) {
   .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  /* Increase base font size for better readability */
+  .table td,
+  .table th {
+    min-width: 100px;
+    /* Ensure columns don't collapse too much */
+  }
+}
+
+.padding-dynamic {
+  margin-left: 67px;
+}
+
+@media (max-width: 430px) {
+  .ps-5 {
+    padding-left: 1rem !important;
+    margin-left: 1rem !important;
+  }
+
+  .padding-dynamic {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .container {
+    padding: 10px;
+  }
+
+  /* Increase font size significantly for mobile */
+  .table {
+    font-size: 11px;
+    /* Increased from 7px */
+    min-width: 600px;
+  }
+
   .table td:nth-child(4),
   .table td:nth-child(5),
   .table td:nth-child(6) {
-    font-size: 12px;
+    font-size: 11px;
+    /* Consistent font size */
   }
+
+  /* Relax fixed widths */
+  .hijri-select,
+  .color-select {
+    width: auto !important;
+    /* Let content dictate width */
+    min-width: 45px;
+    font-size: 11px;
+    padding: 4px;
+  }
+
+  /* Improve Action Buttons */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    /* Stack buttons vertically */
+    gap: 6px;
+    /* More space between buttons */
+    align-items: center;
+    /* Center buttons instead of stretching */
+    padding: 2px;
+    width: 100%;
+  }
+
   .edit-btn,
   .complete-btn,
   .delete-btn,
   .important-btn,
-  .remove-color-btn {
-    padding: 2px 4px;
-    font-size: 9px;
-    min-width: 45px;
+  .remove-color-btn,
+  .move-btn {
+    padding: 4px 8px;
+    /* Slightly reduced padding */
+    font-size: 11px;
+    margin: 0;
+    width: auto;
+    /* Allow natural width */
+    min-width: 70px;
+    /* Ensure minimum click area */
+    border-radius: 4px;
   }
-  .container {
-    padding: 5px;
+
+  /* Fix Introduction and Notes on Mobile */
+  .introduction {
+    font-size: 11px;
   }
-  .action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    align-items: center;
+
+  .introduction p {
+    font-size: 11px;
   }
-  .hijri-select,
-  .color-select {
-    width: 35px !important;
-    font-size: 7px;
+
+  .notes-title {
+    font-size: 11px;
   }
+
+  .notes-list {
+    font-size: 11px;
+  }
+
   .table th,
   .table td {
-    padding: 3px;
+    padding: 6px;
+    /* meaningful padding */
     white-space: normal;
-    line-height: 1.2;
+    line-height: 1.4;
   }
 }
+
 /* جعل جميع صفوف الجدول الثالث بيضاء على الشاشة */
 #completedTable.table-striped tbody tr,
 #completedTable.table-striped tbody tr:nth-child(odd),
@@ -465,9 +672,148 @@ h4 {
 
 /* جعل جميع صفوف الجدول الثالث بيضاء عند الطباعة */
 @media print {
+
   #completedTable.table-striped tbody tr,
   #completedTable.table-striped tbody tr:nth-child(odd),
   #completedTable.table-striped tbody tr:nth-child(even) {
     background-color: #ffffff !important;
+  }
+}
+
+/* ===== Toast Notification System ===== */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: toastSlideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 400px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  direction: rtl;
+  position: relative;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.toast.hiding {
+  animation: toastSlideOut 0.3s ease-in forwards;
+}
+
+.toast-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  text-align: right;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+/* Toast Types */
+.toast-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.toast-info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+/* Animations */
+@keyframes toastSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+}
+
+/* Progress bar for auto-dismiss */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 12px 12px;
+  animation: toastProgress 3s linear forwards;
+}
+
+@keyframes toastProgress {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
+
+/* Hide toasts during print */
+@media print {
+  .toast-container {
+    display: none !important;
   }
 }
